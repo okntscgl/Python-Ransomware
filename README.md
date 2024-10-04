@@ -1,5 +1,7 @@
 # Ransomware Python Script
 
+This script is provided for educational purposes only. The author does not accept any legal responsibility for any misuse of this script or any consequences that may arise from its use. Please use this code within legal boundaries and for ethical hacking practices only.
+
 ## Overview
 
 This script is a simple demonstration of ransomware-like functionality that encrypts specified file types on a Windows machine. It generates a decryption script and sends a notification message to a Discord webhook, including the system's IP address and the encryption key used. **This code is for educational purposes only and should never be used maliciously.**
@@ -34,4 +36,4 @@ import time
 import random
 import string
 
-This script is provided for educational purposes only. The author does not accept any legal responsibility for any misuse of this script or any consequences that may arise from its use. Please use this code within legal boundaries and for ethical hacking practices only.
+
