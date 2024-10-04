@@ -22,7 +22,7 @@ def decrypt_file(file_path, key, output_directory):
 def decrypt_all_files(directory, key, output_directory):
     for root, dirs, files in os.walk(directory):
         for file in files:
-            if file.endswith(tuple(ENCRYPTED_EXTENSIONS)) and file not in ["ransom_x.py", "ransom_y.py", "benioku.txt"]:
+            if file.endswith(tuple(ENCRYPTED_EXTENSIONS)) and file not in ["ransom_x.py", "ransom_y.py", "readme.txt"]:
                 file_path = os.path.join(root, file)
                 decrypt_file(file_path, key, output_directory)
 
