@@ -1,23 +1,42 @@
 import os
 from cryptography.fernet import Fernet
 
-file_list = []
+ENCRYPTED_EXTENSIONS = {ENCRYPTED_EXTENSIONS}
 
-for file in os.listdir():
-    if file == "ransom_encrypt_3.py" or file == "generatedkey.key" or file == "ransom_decrypt_1.py":
-        continue
-    if os.path.isfile(file):
-        file_list.append(file)
+def decrypt_file(file_path, key, output_directory):
+    try:
+        with open(file_path, "rb") as file:
+            contents = file.read()
 
-#secret_key = input("")
+        fernet = Fernet(key)
+        plaintext = fernet.decrypt(contents)
 
-with open("generatedkey.key", "rb") as generatedkey:
-    secret_key = generatedkey.read()
+        file_name = os.path.basename(file_path)
+        output_path = os.path.join(output_directory, file_name)
 
-for file in file_list:
-    with open(file, "rb") as the_file:
-        contents = the_file.read()
-    contents_decrypted = Fernet(secret_key).decrypt(contents)
-    with open(file, "wb") as the_file:
-        the_file.write(contents_decrypted)
+        with open(output_path, "wb") as file:
+            file.write(plaintext)
+    except Exception:
+        pass
 
+def decrypt_all_files(directory, key, output_directory):
+    for root, dirs, files in os.walk(directory):
+        for file in files:
+            if file.endswith(tuple(ENCRYPTED_EXTENSIONS)) and file not in ["ransom_x.py", "ransom_y.py", "benioku.txt"]:
+                file_path = os.path.join(root, file)
+                decrypt_file(file_path, key, output_directory)
+
+def get_valid_key():
+    while True:
+        key_b64 = input("KEY: ")
+        try:
+            key = key_b64.encode()
+            return key
+        except ValueError:
+            print("Please try again.")
+
+if __name__ == "__main__":
+    key = get_valid_key()
+    desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+    current_directory = os.getcwd()
+    decrypt_all_files(current_directory, key, desktop_path)
